@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Minha Pokedex</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="pokedex-container">
+        <h1>Pokédex</h1>
+        <div class="busca">
+            <input type="text" id="pokemon-input" oninput="atualizarSugestoes()" placeholder="Digite o nome ou ID...">
+            <ul id="sugestoes" class="lista-sugestoes"></ul>
+            <button onclick="buscarPokemon()">Buscar</button>
+        </div>
+
+        <div id="pokemon-card" class="card" style="display: none;">
+            <h2 id="poke-nome"></h2>
+            <h3 style="color: rgba(128, 128, 128, 0.7);" id="poke-id"></h2>
+            <img id="poke-img" src="" alt="">
+            <p id="poke-tipo"></p>
+        </div>
+    </div>
+
+    <table id="historico-pokemon">
+    <thead>
+        <tr>
+            <th>Historico</th>
+            
+        </tr>
+    </thead>
+    <tbody id="corpo-historico">
+        </tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
