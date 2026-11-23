@@ -1,38 +1,95 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Minha Pokedex</title>
+    <title>My Pokédex</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="pokedex-container">
         <h1>Pokédex</h1>
-        <div class="busca">
-            <input type="text" id="pokemon-input" oninput="atualizarSugestoes()" placeholder="Digite o nome ou ID...">
-            <ul id="sugestoes" class="lista-sugestoes"></ul>
-            <button onclick="buscarPokemon()">Buscar</button>
-        </div>
+        <nav class="abas" aria-label="Pokédex navigation">
+            <button class="aba ativa" id="aba-explorar" type="button" aria-selected="true" onclick="mostrarAba('explorar')">Explore</button>
+            <button class="aba" id="aba-pesquisar" type="button" aria-selected="false" onclick="mostrarAba('pesquisar')">Search</button>
+        </nav>
 
-        <div id="pokemon-card" class="card" style="display: none;">
-            <h2 id="poke-nome"></h2>
-            <h3 style="color: rgba(128, 128, 128, 0.7);" id="poke-id"></h2>
-            <img id="poke-img" src="" alt="">
-            <p id="poke-tipo"></p>
-        </div>
+        <section id="painel-explorar" class="painel">
+            <label class="filtro-tipo" for="filtro-tipo">Filter by type
+                <select id="filtro-tipo">
+                    <option value="">All types</option>
+                    <option value="normal">Normal</option>
+                    <option value="fire">Fire</option>
+                    <option value="water">Water</option>
+                    <option value="electric">Electric</option>
+                    <option value="grass">Grass</option>
+                    <option value="ice">Ice</option>
+                    <option value="fighting">Fighting</option>
+                    <option value="poison">Poison</option>
+                    <option value="ground">Ground</option>
+                    <option value="flying">Flying</option>
+                    <option value="psychic">Psychic</option>
+                    <option value="bug">Bug</option>
+                    <option value="rock">Rock</option>
+                    <option value="ghost">Ghost</option>
+                    <option value="dragon">Dragon</option>
+                    <option value="dark">Dark</option>
+                    <option value="steel">Steel</option>
+                    <option value="fairy">Fairy</option>
+                </select>
+            </label>
+            <p id="status-lista" class="mensagem" role="status">Loading Pokémon...</p>
+            <div id="lista-pokemon" class="lista-pokemon"></div>
+        </section>
+
+        <section id="painel-pesquisar" class="painel" hidden>
+            <div class="busca">
+                <input type="text" id="pokemon-input" autocomplete="off" placeholder="Enter a Pokémon name or ID..." aria-label="Pokémon name or ID">
+                <ul id="sugestoes" class="lista-sugestoes"></ul>
+                <button id="botao-buscar" type="button" onclick="buscarPokemon()">Search</button>
+            </div>
+            <p id="status-busca" class="mensagem" role="status"></p>
+            <div id="pokemon-card" class="card" hidden>
+                <h2 id="poke-nome"></h2>
+                <h3 id="poke-id"></h3>
+                <img id="poke-img" src="" alt="">
+                <p id="poke-tipo"></p>
+                <nav class="abas detalhe-abas" aria-label="Pokémon information">
+                    <button class="aba ativa" id="aba-detalhes-pokemon" type="button" aria-selected="true" onclick="mostrarAbaDetalhe('detalhes')">Details</button>
+                    <button class="aba" id="aba-evolucoes-pokemon" type="button" aria-selected="false" onclick="mostrarAbaDetalhe('evolucoes')">Evolution</button>
+                </nav>
+                <div id="painel-detalhes-pokemon">
+                    <section class="descricao-pokedex" aria-labelledby="descricao-pokedex-titulo">
+                        <h3 id="descricao-pokedex-titulo">Pokédex Entry</h3>
+                        <p id="poke-descricao"></p>
+                    </section>
+                    <section id="poke-efetividade" class="efetividade" aria-labelledby="efetividade-titulo">
+                        <h3 id="efetividade-titulo">Defensive Type Matchups</h3>
+                        <div class="efetividade-grupos">
+                            <div class="efetividade-grupo fraquezas">
+                                <h4>Weaknesses</h4>
+                                <div id="poke-fraquezas" class="efetividade-lista"></div>
+                            </div>
+                            <div class="efetividade-grupo resistencias">
+                                <h4>Resistances</h4>
+                                <div id="poke-resistencias" class="efetividade-lista"></div>
+                            </div>
+                            <div class="efetividade-grupo imunidades">
+                                <h4>Immunities</h4>
+                                <div id="poke-imunidades" class="efetividade-lista"></div>
+                            </div>
+                        </div>
+                    </section>
+                    <div id="poke-stats" class="stats"></div>
+                </div>
+                <section id="painel-evolucoes-pokemon" class="evolucoes" aria-labelledby="evolucoes-titulo" hidden>
+                    <h3 id="evolucoes-titulo">Evolution line</h3>
+                    <p id="status-evolucoes" class="mensagem" role="status"></p>
+                    <div id="poke-evolucoes" class="arvore-evolucao"></div>
+                </section>
+            </div>
+            <p id="erro-busca" class="mensagem erro" role="alert" hidden></p>
+        </section>
     </div>
-
-    <table id="historico-pokemon">
-    <thead>
-        <tr>
-            <th>Historico</th>
-            
-        </tr>
-    </thead>
-    <tbody id="corpo-historico">
-        </tbody>
-    </table>
 
     <script src="script.js"></script>
 </body>
